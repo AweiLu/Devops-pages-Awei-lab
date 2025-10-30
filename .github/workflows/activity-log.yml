@@ -21,15 +21,12 @@ jobs:
           # 使用我們在步驟 B 儲存的 Secret
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-          # 要更新的檔案
-          TARGET_FILE: 'README.md'
-
           # [重要] 這裡要填入你的 GitHub 用戶名
-          USERNAME: 'AweiLu' 
+          GITHUB_USERNAME: 'AweiLu' 
+
+          # 要更新的檔案
+          README_PATH: 'README.md'
 
           # (可選) 顯示活動的最大數量
-          MAX_LINES: 10
-
-          # (可選) 包含 Private Repo 的活動 (如果你在 PAT 有開權限)
-          INCLUDE_PRIVATE: true
+          EVENT_LIMIT: 10
           
