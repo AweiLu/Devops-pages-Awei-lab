@@ -1,0 +1,33 @@
+name: Update README Activity Log
+
+on:
+  # 1. 每天固定時間執行 (UTC 00:00)
+  schedule:
+    - cron: '0 0 * * *'
+
+  # 2. 允許你手動觸發 (在 Actions 頁籤)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # 核心步驟：執行 activity-log action
+      - uses: TheDanniCraft/activity-log@latest
+        with:
+          # 使用我們在步驟 B 儲存的 Secret
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+          # 要更新的檔案
+          TARGET_FILE: 'README.md'
+
+          # [重要] 這裡要填入你的 GitHub 用戶名
+          USERNAME: 'AweiLu' 
+
+          # (可選) 顯示活動的最大數量
+          MAX_LINES: 10
+
+          # (可選) 包含 Private Repo 的活動 (如果你在 PAT 有開權限)
+          INCLUDE_PRIVATE: true
