@@ -1,31 +1,25 @@
 name: Update README Activity Log
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      # 核心步驟：執行 activity-log action
-      - uses: TheDanniCraft/activity-log@latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Update README with activity log
+        uses: TheDanniCraft/activity-log@v1
         with:
-          # 使用我們在步驟 B 儲存的 Secret
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-          # [重要] 這裡要填入你的 GitHub 用戶名
-          USERNAME: 'AweiLu'
+          COMMIT_MESSAGE: 'Bot: Automatically update activity log'
 
-          # 要更新的檔案
-          TARGET_FILE: 'README.md'
-
-          # (可選) 顯示活動的最大數量
-          MAX_LINES: 10
-
-          # [重要] 作業要求的 placeholder
-          START_PLACEHOLDER: ''
-          END_PLACEHOLDER: ''
+          EVENT_LIMIT: 5
